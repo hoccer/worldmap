@@ -63,7 +63,7 @@ if(!listenPort) {
 
 var listenAddress = opts["address"];
 if(!listenAddress) {
-    listenAddress = '127.0.0.1';
+    listenAddress = '0.0.0.0';
     console.log('Defaulting address to ' + listenAddress);
 }
 
