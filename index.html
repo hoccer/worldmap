@@ -33,7 +33,7 @@
 
       addMarker(map, berlin.lat(), berlin.lng());
 
-      socket = new io.Socket('localhost', { port: 9414 });
+      socket = new io.Socket('production.hoccer.com', { port: 9414 });
       socket.connect();
 
       socket.on('message', function(data){
