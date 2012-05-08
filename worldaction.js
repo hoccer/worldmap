@@ -29,7 +29,10 @@ var WorldAction = function() {
   return that;
 };
 
+var world = new WorldAction();
+
 var server = http.createServer(function(req, res){
+  console.log("request " + req.method + " for " + req.url);
   if (req.url.match(/^\/hoc\/?$/) && req.method == "PUT") {
     var body = "";
     req.on("data", function(data) {
@@ -39,9 +42,10 @@ var server = http.createServer(function(req, res){
       try {
         var b = JSON.parse(body);
         console.log(b);
-        worldActions.broadcast(b);
+        world.broadcast(b);
       } catch (error) {
-        console.log("JSON parse error in " + body);
+        console.log("error processing " + body);
+		console.log("error was " + error);
       }
     });
 
@@ -89,12 +93,12 @@ function banner() {
 function serve() {
     server.listen(listenPort, listenAddress);
 
-    var socket       = io.listen(server),
-    worldActions = WorldAction();
+    var socket       = io.listen(server);
 
     socket.on('connection', function(client){
                   // new client is here!
-                  worldActions.addClient(client);
+				  console.log("new client!");
+                  world.addClient(client);
                   
                   client.on('disconnect', function(){
                                 console.log("disconnected");
