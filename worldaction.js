@@ -83,6 +83,12 @@ if(!logFile) {
     console.log('Defaulting log file to ' + logFile);
 }
 
+var user = opts["user"];
+if(!user) {
+    user = "hoccer-worldmap";
+	console.log("Defaulting user to " + user);
+}
+
 var daemonize = false;
 
 function banner() {
@@ -94,6 +100,8 @@ function serve() {
     server.listen(listenPort, listenAddress);
 
     var socket       = io.listen(server);
+
+    process.setuid(user);
 
     socket.on('connection', function(client){
                   // new client is here!
