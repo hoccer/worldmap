@@ -110,7 +110,7 @@ function serve() {
                   
                   client.on('disconnect', function(){
                                 console.log("disconnected");
-                                worldActions.removeClient(client);
+                                world.removeClient(client);
                             });
               });
 }
